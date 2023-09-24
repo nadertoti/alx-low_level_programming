@@ -1,16 +1,12 @@
-section .data
-    hello db "Hello, Holberton",0
-    format db "%s", 10, 0   ; Format string for printf with a new line character
+global main
+extern printf
 
-section .text
-    global main
-
-    extern printf
-    main:
-        push rbp
-        mov rdi, format     ; Format string
-        mov rsi, hello      ; Address of the string
-        call printf
-
-        pop rbp
-        ret
+section.text
+main:
+mov	rdi, fmt
+mov	rax, 0
+call	printf
+mov	rax, 0
+ret
+fmt:
+	db "Hello, Holberton", 10, 0
