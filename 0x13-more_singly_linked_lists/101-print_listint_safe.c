@@ -2,10 +2,9 @@
 #include <stdio.h>
 
 /**
- * print_listint_safe - Prints a listint_t linked list safely.
- * @head: A pointer to the head of the list.
- *
- * Return: The number of nodes in the list.
+ * print_listint_safe - A function that prints the elementsin a  list
+ * @head: A pointer to listint_t structure
+ * Return: The number of nodes. Exits with 98 on failure
  */
 size_t print_listint_safe(const listint_t *head)
 {
