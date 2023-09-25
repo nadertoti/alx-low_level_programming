@@ -1,22 +1,22 @@
 #include "lists.h"
 
 /**
- * free_list - fress a list in memory
+ * free_list - fress a list
  *
- * @head: head of the linked list
+ * @head: head
  *
  */
 void free_list(list_t *head)
 {
-	list_t *first_node = head;
-	list_t *next_node;
+	list_t *sum = head;
+	list_t *nextnode;
 
-	while (first_node)
+	while (sum)
 	{
-		next_node = first_node->next_node;
-		free(first_node->str);
-		free(first_node);
-		first_node = next_node;
+		nextnode = sum->nextnode;
+		free(sum->str);
+		free(sum);
+		sum = nextnode;
 	}
 	head = NULL;
 }
