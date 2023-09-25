@@ -3,24 +3,24 @@
 /**
  * print_list - print all the elements of a list
  *
- * @head: head
+ * @h: head
  *
  * Return: number of nodes
  *
  */
-size_t print_list(const list_t *head)
+size_t print_list(const list_t *h)
 {
 	size_t sum;
 
 	sum = 0;
-	while (head != NULL)
+	while (h != NULL)
 	{
-		if (head->str == NULL)
+		if (h->str == NULL)
 			printf("[0] (nil)\n");
 		else
-			printf("[%d] %s\n", head->len, head->str);
-		n++;
-		head = head->next;
+			printf("[%d] %s\n", h->len, h->str);
+		sum++;
+		h = h->next;
 	}
 	return (sum);
 }
