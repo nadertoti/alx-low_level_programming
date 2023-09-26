@@ -8,7 +8,7 @@
  */
 listint_t *reverse_listint(listint_t **head)
 {
-   	listint_t *prev = NULL, *next;
+	listint_t *prev = NULL, *next;
 
 	if (*head == NULL)
 		return (NULL);
@@ -20,7 +20,7 @@ listint_t *reverse_listint(listint_t **head)
 		prev = *head;
 		*head = next;
 	}
-    *head = prev; /* Update the head to point to the new first node */
+	*head = prev; /* Update the head to point to the new first node */
 
-    return (*head);
+	return (*head);
 }
