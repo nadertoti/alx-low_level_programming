@@ -19,7 +19,7 @@ listint_t *add_nodeint_end(listint_t **head, const int n)
     node->n = n;
     node->next = NULL;
 
-    if (!*head) /* Check if the list is empty */
+    if (!*head)
         *head = node;
     else
     {
