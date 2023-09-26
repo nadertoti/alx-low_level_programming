@@ -14,14 +14,14 @@ listint_t *find_listint_loop(listint_t *head)
 	if (!head)
 		return (NULL);
 
-	while (tortoise && hare && hare->next)
+	for (; tortoise && hare && hare->next;)
 	{
 		tortoise = tortoise->next;
 		hare = hare->next->next;
 		if (tortoise == hare)
 		{
 			tortoise = head;
-			while (tortoise != hare)
+			for (; tortoise != hare;)
 			{
 				tortoise = tortoise->next;
 				hare = hare->next;
