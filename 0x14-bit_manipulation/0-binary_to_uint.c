@@ -1,4 +1,5 @@
-#include "main.h"
+#include <stddef.h>  /* Include this first */
+#include "main.h"    /* Include your custom header */
 
 /**
  * binary_to_uint - Convert a binary string to an unsigned int.
@@ -17,9 +18,9 @@ unsigned int binary_to_uint(const char *b)
     while (*b)
     {
         if (*b != '0' && *b != '1')
-	  return 0; /* Invalid character found, return 0 */
+            return 0; /* Invalid character found, return 0 */
 
-        result = (result << 1) | (*b - '0'); /* Convert binary to integr */
+        result = (result << 1) | (*b - '0'); /* Convert binary to integer */
         b++;
     }
 
