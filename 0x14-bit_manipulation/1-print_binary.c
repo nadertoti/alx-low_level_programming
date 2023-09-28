@@ -6,13 +6,19 @@
  */
 void print_binary(unsigned long int n)
 {
-	unsigned int shift = sizeof(n) * 8 - 1;
+    int shift;
+    int flag = 0;
 
-	while (shift > 0)
-	{
-		_putchar((n >> shift) & 1 ? '1' : '0');
-		shift--;
-	}
-
-	_putchar((n & 1) ? '1' : '0');
+    for (shift = sizeof(n) * 8 - 1; shift >= 0; shift--)
+    {
+        if ((n >> shift) & 1)
+        {
+            _putchar('1');
+            flag = 1;
+        }
+        else if (flag || shift == 0)
+        {
+            _putchar('0');
+        }
+    }
 }
