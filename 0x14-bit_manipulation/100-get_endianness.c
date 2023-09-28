@@ -10,7 +10,7 @@ int get_endianness(void)
 	unsigned int num = 1;
 	char *byte = (char *)&num;
 
-	/* If the least significant byte is at the lowest memory address, it's little endian */
+       
 	if (*byte)
 		return (1); /* Little endian */
 	else
