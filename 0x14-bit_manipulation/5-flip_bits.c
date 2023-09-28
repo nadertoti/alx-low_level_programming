@@ -1,24 +1,26 @@
 #include "main.h"
 
 /**
- * flip_bits - Calculate the number of bits needed to flip from one number
- *             to another.
- * @n: The first unsigned long integer.
- * @m: The second unsigned long integer.
+ * flip_bits - returns the number of bits you would need to flip
+ * to get from one number to another
  *
- * Return: The number of bits needed to flip.
+ * @n: first number
+ * @m: second number
+ *
+ * Return: numer of bits
+ *
+ *
  */
 unsigned int flip_bits(unsigned long int n, unsigned long int m)
 {
-	unsigned long int diff = n ^ m;
-	unsigned int count = 0;
+	unsigned long int i = n ^ m;
+	int count = 0;
 
-	while (diff)
-        {
-	        if (diff & 1)
+	while (i)
+	{
+		if (i & 1)
 			count++;
-		diff = diff >> 1;
+		i = i >> 1;
 	}
-
-	return count;
+	return (count);
 }
