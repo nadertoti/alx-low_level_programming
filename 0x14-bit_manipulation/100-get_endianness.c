@@ -10,9 +10,10 @@ int get_endianness(void)
 	unsigned int num = 1;
 	char *byte = (char *)&num;
 
-       
+ 
 	if (*byte)
-		return (1); /* Little endian */
+		return (1);
+
 	else
-		return (0); /* Big endian */
+		return (0);
 }
