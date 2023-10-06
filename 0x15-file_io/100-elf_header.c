@@ -1,0 +1,121 @@
+#include "main.h"
+
+/**
+ * main - Entry point
+ * @argc: Argument count
+ * @argv: Argument vector
+ * Return: 0 on success, 98 on error
+ */
+int main(int argc, char *argv[])
+{
+	int fd;
+	Elf64_Ehdr header;
+
+	if (argc != 2)
+		return (ERR_USAGE);
+
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		return (ERR_OPEN);
+
+	if (read(fd, &header, sizeof(header)) != sizeof(header))
+		return (ERR_READ);
+
+	if (is_elf_file(&header) != 1)
+		return (ERR_NOT_ELF);
+
+	print_elf_header_info(&header);
+
+	close(fd);
+	return (0);
+}
+
+/**
+ * print_elf_header_info - Print ELF header information
+ * @header: ELF header structure
+ */
+void print_elf_header_info(Elf64_Ehdr *header)
+{
+	int i; /* Declare i at the beginning of the block */
+
+	printf("Magic:   ");
+	for (i = 0; i < EI_NIDENT; i++)
+		printf("%02x ", header->e_ident[i]);
+	printf("\n");
+
+	printf("Class:                             %s\n",
+		   header->e_ident[EI_CLASS] == ELFCLASS32 ? "ELF32" :
+		   header->e_ident[EI_CLASS] == ELFCLASS64 ? "ELF64" : "Invalid");
+
+	printf("Data:                              %s\n",
+		   header->e_ident[EI_DATA] == ELFDATA2LSB ? "2's complement, little-endian" :
+		   header->e_ident[EI_DATA] == ELFDATA2MSB ? "2's complement, big-endian" : "Invalid");
+
+	printf("Version:                           %d (current)\n", header->e_ident[EI_VERSION]);
+
+	printf("OS/ABI:                            %s\n",
+		   get_osabi_name(header->e_ident[EI_OSABI]));
+
+	printf("ABI Version:                       %d\n", header->e_ident[EI_ABIVERSION]);
+
+	printf("Type:                              %s\n",
+		   get_type_name(header->e_type));
+
+	printf("Entry point address:               0x%lx\n", (unsigned long)header->e_entry);
+}
+
+/**
+ * get_osabi_name - Get OS/ABI name
+ * @osabi: OS/ABI identifier
+ * Return: OS/ABI name
+ */
+char *get_osabi_name(unsigned char osabi)
+{
+	switch (osabi)
+	{
+	case ELFOSABI_SYSV:
+		return "UNIX System V ABI";
+	case ELFOSABI_HPUX:
+		return "HP-UX";
+	case ELFOSABI_STANDALONE:
+		return "Standalone";
+	default:
+		return "Other/Unknown";
+	}
+}
+
+/**
+ * get_type_name - Get ELF file type name
+ * @type: ELF file type
+ * Return: ELF file type name
+ */
+char *get_type_name(uint16_t type)
+{
+	switch (type)
+	{
+	case ET_NONE:
+		return "No file type";
+	case ET_REL:
+		return "Relocatable file";
+	case ET_EXEC:
+		return "Executable file";
+	case ET_DYN:
+		return "Shared object file";
+	case ET_CORE:
+		return "Core file";
+	default:
+		return "Other";
+	}
+}
+
+/**
+ * is_elf_file - Check if the file is an ELF file
+ * @header: ELF header structure
+ * Return: 1 if it's an ELF file, 0 otherwise
+ */
+int is_elf_file(Elf64_Ehdr *header)
+{
+	if (memcmp(header->e_ident, ELFMAG, SELFMAG) == 0)
+		return 1;
+	return 0;
+}
